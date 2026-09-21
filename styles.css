@@ -1,0 +1,226 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background: #121212;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón moderno centrado */
+#startBtn {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 14px 28px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #333;
+    border: none;
+    border-radius: 30px;
+    background: #ffd700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    z-index: 10;
+    transition: transform 0.2s ease, background 0.2s ease, opacity 0.3s ease;
+}
+
+#startBtn:hover {
+    transform: translate(-50%, -52%) scale(1.05);
+    background: #ffea5c;
+}
+
+/* ============================================================
+   FLOR GRANDE
+   Todo se calcula a partir de --size (diámetro total de la flor)
+   ============================================================ */
+#flowerContainer {
+    --size: min(260px, 64vw, 34vh);
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+
+/* ---------- Tallo ---------- */
+.stem {
+    position: absolute;
+    left: -4px;
+    top: 0;
+    width: 8px;
+    height: 46vh;
+    border-radius: 4px;
+    background: linear-gradient(to right, #1f6b2a, #4caf50 50%, #1f6b2a);
+    transform-origin: bottom center;
+    transform: scaleY(0);
+    animation: growStem 1.2s ease-out forwards;
+}
+
+@keyframes growStem {
+    to { transform: scaleY(1); }
+}
+
+/* ---------- Hojas ---------- */
+.leaf {
+    position: absolute;
+    left: 0;
+    width: calc(var(--size) * 0.34);
+    height: calc(var(--size) * 0.17);
+    background: linear-gradient(135deg, #8be07a, #2e7d32);
+    border-radius: 0 100% 0 100%;
+    transform-origin: left center;
+    transform: var(--t) scale(0);
+    opacity: 0;
+    animation: growLeaf 0.8s ease-out forwards;
+}
+
+.leaf.right {
+    --t: rotate(-20deg);
+}
+
+.leaf.left {
+    --t: scaleX(-1) rotate(-20deg);
+}
+
+@keyframes growLeaf {
+    to {
+        opacity: 1;
+        transform: var(--t) scale(1);
+    }
+}
+
+/* ---------- Cabeza de la flor (gira despacio al terminar) ---------- */
+.head {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    animation: spin 70s linear infinite;
+    animation-delay: 4s;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---------- Pétalos (anillo exterior) ---------- */
+.petal {
+    position: absolute;
+    width: calc(var(--size) * 0.2);
+    height: calc(var(--size) * 0.5);
+    left: calc(var(--size) * -0.1);
+    top: calc(var(--size) * -0.5);
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    background: linear-gradient(to top, #f59e00 0%, #ffd400 55%, #fff07a 100%);
+    box-shadow: inset 0 0 8px rgba(255, 140, 0, 0.35);
+    transform-origin: 50% 100%;
+    transform: rotate(var(--a)) scale(0);
+    opacity: 0;
+    animation: petalBloom 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: var(--d);
+}
+
+/* Pétalos interiores: más cortos, más dorados, entre los exteriores */
+.petal.inner {
+    width: calc(var(--size) * 0.17);
+    height: calc(var(--size) * 0.38);
+    left: calc(var(--size) * -0.085);
+    top: calc(var(--size) * -0.38);
+    background: linear-gradient(to top, #e08a00 0%, #ffb800 60%, #ffe04d 100%);
+}
+
+@keyframes petalBloom {
+    to {
+        opacity: 1;
+        transform: rotate(var(--a)) scale(1);
+    }
+}
+
+/* ---------- Centro del girasol ---------- */
+.core {
+    position: absolute;
+    width: calc(var(--size) * 0.42);
+    height: calc(var(--size) * 0.42);
+    left: calc(var(--size) * -0.21);
+    top: calc(var(--size) * -0.21);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #8a5a2b, #4a2c12 55%, #2b1808);
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.7), 0 0 22px rgba(255, 180, 0, 0.45);
+    transform: scale(0);
+    opacity: 0;
+    animation: coreBloom 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 3s;
+}
+
+/* Puntitos que imitan las semillas */
+.core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 220, 150, 0.14) 0 2px,
+        transparent 2px 7px
+    );
+}
+
+@keyframes coreBloom {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ---------- Mensaje ---------- */
+#message {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#message .subtitle {
+    display: block;
+    font-family: 'Sacramento', cursive;
+    font-size: 42px;
+    color: #ffd700;
+    margin-bottom: 0;
+}
+
+#message h1 {
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: 400;
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .head { animation: none; }
+}
