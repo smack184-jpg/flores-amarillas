@@ -1,11 +1,10 @@
-
 const btn = document.getElementById("startBtn");
 const container = document.getElementById("flowerContainer");
 const message = document.getElementById("message");
 const music = document.getElementById("music");
 const petalsContainer = document.getElementById("petals");
 
-// Función corazón ❤️
+// Función matemática del corazón ❤️
 function heart(t) {
     return {
         x: 16 * Math.pow(Math.sin(t), 3),
@@ -17,27 +16,31 @@ function heart(t) {
 btn.addEventListener("click", () => {
     btn.style.display = "none";
 
-    // Activar música (necesario en celulares)
-    music.play();
+    // Activar música de forma segura para celulares
+    music.play().catch(error => {
+        console.log("El navegador requiere interacción para el audio:", error);
+    });
 
-    // Crear corazón de flores
-    for (let i = 0; i < 70; i++) {
+    // Crear corazón de flores centrado
+    const totalFlowers = 70;
+    for (let i = 0; i < totalFlowers; i++) {
         setTimeout(() => {
-            let t = Math.PI * 2 * (i / 70);
+            let t = Math.PI * 2 * (i / totalFlowers);
             let pos = heart(t);
 
             let flower = document.createElement("div");
             flower.className = "flower";
             flower.innerHTML = "🌼";
 
-            flower.style.left = `calc(50% + ${pos.x * 10}px)`;
-            flower.style.top = `calc(40% + ${pos.y * 10}px)`;
+            // Multiplicador ajustado a 12 para una escala perfecta y centrada
+            flower.style.left = `${pos.x * 12}px`;
+            flower.style.top = `${pos.y * 12}px`;
 
             container.appendChild(flower);
-        }, i * 70);
+        }, i * 60);
     }
 
-    // Mostrar mensaje
+    // Mostrar mensaje fluidamente
     setTimeout(() => {
         message.style.opacity = "1";
     }, 4000);
@@ -49,13 +52,13 @@ btn.addEventListener("click", () => {
         petal.innerHTML = "🌸";
 
         petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (3 + Math.random() * 5) + "s";
+        petal.style.animationDuration = (3 + Math.random() * 4) + "s";
 
         petalsContainer.appendChild(petal);
 
         setTimeout(() => {
             petal.remove();
-        }, 8000);
+        }, 7000);
 
     }, 300);
 });
