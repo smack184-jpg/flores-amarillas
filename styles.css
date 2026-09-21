@@ -1,9 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    height: 100vh.
-    background: #121212; /* Fondo oscuro elegante como en el video */
+    height: 100vh;
+    background: radial-gradient(circle at center, #fff9e6 0%, #ffeaa7 100%);
     overflow: hidden;
-    font-family: 'Brush Script MT', cursive, sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,55 +22,107 @@ body {
     align-items: center;
 }
 
-/* Botón */
+/* Botón moderno con efecto hover y brillo */
 #startBtn {
     position: absolute;
-    padding: 10px 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 16px 32px;
     font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
     border: none;
-    border-radius: 20px;
-    background: #ffd700;
-    color: #333;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #fbc531, #e1b12c);
     cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(241, 196, 15, 0.4);
+    transition: all 0.3s ease;
     z-index: 10;
 }
 
-/* Estilo para las flores y tallos */
-.flower {
-    position: absolute;
-    font-size: 24px;
-    opacity: 0;
-    transform: scale(0);
-    animation: bloom 0.8s forwards;
+#startBtn:hover {
+    transform: translate(-50%, -52%) scale(1.05);
+    box-shadow: 0 15px 30px rgba(241, 196, 15, 0.6);
 }
 
-@keyframes bloom {
-    to {
+/* Flores con animación de aparición suave y flotado */
+.flower {
+    position: absolute;
+    font-size: 26px;
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+    animation: bloomAndFloat 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bloomAndFloat {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+    }
+    100% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) rotate(0deg);
     }
 }
 
-/* Mensaje */
-#message {
+/* Contenedor de flores y pétalos */
+#flowerContainer, #petals {
     position: absolute;
-    top: 20%;
     width: 100%;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
+    height: 100%;
+    pointer-events: none;
 }
 
-#message h2 {
-    font-size: 28px;
-    color: #fff;
+/* Mensaje moderno y elegante */
+#message {
+    position: absolute;
+    bottom: 12%;
+    width: 85%;
+    max-width: 600px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+#message .subtitle {
+    display: block;
+    font-family: 'Sacramento', cursive;
+    font-size: 38px;
+    color: #d4a373;
     margin-bottom: 5px;
 }
 
 #message h1 {
-    font-size: 36px;
-    color: #ffd700;
-    margin-top: 0;
+    font-size: 18px;
+    color: #495057;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Pétalos cayendo con rotación fluida */
+.petal {
+    position: absolute;
+    font-size: 18px;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.3;
+    }
 }
