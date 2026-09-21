@@ -1,67 +1,926 @@
+* {
+    box-sizing: border-box;
+}
+
+
 body {
+
     margin: 0;
-    background: linear-gradient(#fff8dc, #ffe4a1);
+
+    padding: 0;
+
     overflow: hidden;
-    font-family: "Brush Script MT", cursive;
+
+    background: #10151b;
+
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+
 }
 
-/* Botón */
-#startBtn {
+
+/* =====================================
+   ESCENA PRINCIPAL
+===================================== */
+
+.scene {
+
+    position: relative;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #202a2d 0%,
+            #11171d 55%,
+            #080c10 100%
+        );
+
+}
+
+
+/* =====================================
+   BRILLOS DEL FONDO
+===================================== */
+
+.glow {
+
     position: absolute;
-    top: 45%;
+
+    width: 250px;
+
+    height: 250px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 210, 0, 0.05);
+
+    filter: blur(60px);
+
+}
+
+
+.glow1 {
+
+    top: 10%;
+
+    left: 10%;
+
+}
+
+
+.glow2 {
+
+    bottom: 10%;
+
+    right: 10%;
+
+}
+
+
+.glow3 {
+
+    top: 40%;
+
+    left: 45%;
+
+}
+
+
+/* =====================================
+   CONTENIDO CENTRAL
+===================================== */
+
+.content {
+
+    position: absolute;
+
+    top: 50%;
+
     left: 50%;
+
     transform: translate(-50%, -50%);
-    padding: 15px 25px;
-    font-size: 20px;
-    border: none;
-    border-radius: 20px;
-    background: gold;
-    cursor: pointer;
-}
 
-/* Flores */
-.flower {
-    position: absolute;
-    font-size: 28px;
-    opacity: 0;
-    transform: scale(0);
-    animation: bloom 0.8s forwards;
-}
+    width: 330px;
 
-@keyframes bloom {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+    max-width: 80vw;
 
-/* Mensaje */
-#message {
-    position: absolute;
-    width: 100%;
-    top: 65%;
     text-align: center;
-    opacity: 0;
-    transition: opacity 2s;
+
+    z-index: 10;
+
 }
 
-#message h1 {
-    font-size: 32px;
-    color: goldenrod;
-}
 
-/* Pétalos */
-.petal {
-    position: absolute;
+/* pequeño corazón */
+
+.small-text {
+
     font-size: 20px;
-    animation: fall linear infinite;
+
+    margin-bottom: 5px;
+
 }
+
+
+/* TÍTULO */
+
+.content h1 {
+
+    margin: 0;
+
+    color: #f4dc3b;
+
+    font-size: 45px;
+
+    font-weight: normal;
+
+    text-shadow:
+
+        0 0 10px rgba(255, 220, 0, .2);
+
+}
+
+
+.content h1 span {
+
+    font-size: 25px;
+
+}
+
+
+/* SUBTÍTULO */
+
+.content h2 {
+
+    margin:
+
+        8px 0 20px 0;
+
+    color: #f0dc65;
+
+    font-size: 19px;
+
+    font-weight: normal;
+
+}
+
+
+/* =====================================
+   BOTÓN
+===================================== */
+
+#startBtn {
+
+    border: none;
+
+    outline: none;
+
+    padding:
+
+        9px 30px;
+
+    border-radius: 20px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #f5d900,
+            #fff04a
+        );
+
+    color: #5d4d00;
+
+    font-family:
+        "Segoe Script",
+        cursive;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 0 10px
+        rgba(255, 220, 0, .35);
+
+    transition:
+
+        transform .3s,
+        box-shadow .3s;
+
+}
+
+
+#startBtn:hover {
+
+    transform: scale(1.08);
+
+    box-shadow:
+
+        0 0 20px
+        rgba(255, 220, 0, .6);
+
+}
+
+
+/* =====================================
+   FLOR CENTRAL
+===================================== */
+
+.center-flower {
+
+    margin-top: 25px;
+
+    font-size: 25px;
+
+    animation:
+
+        floating 2s ease-in-out infinite;
+
+}
+
+
+@keyframes floating {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px);
+
+    }
+
+}
+
+
+/* =====================================
+   RAMAS
+===================================== */
+
+.branch {
+
+    position: absolute;
+
+    width: 170px;
+
+    height: 430px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    z-index: 4;
+
+}
+
+
+/* izquierda */
+
+.branch.left {
+
+    left: calc(50% - 190px);
+
+}
+
+
+/* derecha */
+
+.branch.right {
+
+    right: calc(50% - 190px);
+
+}
+
+
+/* tallo */
+
+.stem {
+
+    position: absolute;
+
+    width: 3px;
+
+    height: 350px;
+
+    background:
+
+        linear-gradient(
+            transparent,
+            #315f3b,
+            #24452e
+        );
+
+    bottom: 10px;
+
+    left: 50%;
+
+    transform:
+
+        rotate(
+            12deg
+        );
+
+    transform-origin:
+        bottom;
+
+}
+
+
+/* =====================================
+   HOJAS
+===================================== */
+
+.leaf {
+
+    position: absolute;
+
+    font-size: 27px;
+
+    opacity: .9;
+
+}
+
+
+/* posiciones */
+
+.left .l1 {
+
+    top: 35%;
+
+    left: 25%;
+
+    transform:
+        rotate(-30deg);
+
+}
+
+
+.left .l2 {
+
+    top: 52%;
+
+    right: 5%;
+
+    transform:
+        rotate(25deg);
+
+}
+
+
+.left .l3 {
+
+    top: 68%;
+
+    left: 5%;
+
+    transform:
+        rotate(-25deg);
+
+}
+
+
+.right .l1 {
+
+    top: 35%;
+
+    right: 25%;
+
+    transform:
+        rotate(30deg);
+
+}
+
+
+.right .l2 {
+
+    top: 52%;
+
+    left: 5%;
+
+    transform:
+        rotate(-25deg);
+
+}
+
+
+.right .l3 {
+
+    top: 68%;
+
+    right: 5%;
+
+    transform:
+        rotate(25deg);
+
+}
+
+
+/* =====================================
+   FLORES AMARILLAS
+===================================== */
+
+.yellow-flower {
+
+    position: absolute;
+
+    font-size: 38px;
+
+    filter:
+
+        drop-shadow(
+            0 0 5px
+            rgba(255, 220, 0, .4)
+        );
+
+    animation:
+
+        flowerFloat
+        3s ease-in-out infinite;
+
+}
+
+
+/* izquierda */
+
+.left .f1 {
+
+    top: 25%;
+
+    left: 25%;
+
+}
+
+
+.left .f2 {
+
+    top: 48%;
+
+    right: 0;
+
+}
+
+
+.left .f3 {
+
+    top: 70%;
+
+    left: 10%;
+
+}
+
+
+/* derecha */
+
+.right .f1 {
+
+    top: 25%;
+
+    right: 25%;
+
+}
+
+
+.right .f2 {
+
+    top: 48%;
+
+    left: 0;
+
+}
+
+
+.right .f3 {
+
+    top: 70%;
+
+    right: 10%;
+
+}
+
+
+@keyframes flowerFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(-2deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(2deg);
+
+    }
+
+}
+
+
+/* =====================================
+   CORAZÓN DECORATIVO
+===================================== */
+
+.heart-decoration {
+
+    position: absolute;
+
+    top: 18%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    font-family: Arial;
+
+    font-size: 160px;
+
+    color: rgba(
+        55,
+        100,
+        65,
+        .20
+    );
+
+    z-index: 1;
+
+}
+
+
+/* =====================================
+   TARJETA ROMÁNTICA
+===================================== */
+
+#loveCard {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    width: 250px;
+
+    height: 280px;
+
+    transform:
+
+        translate(
+            -50%,
+            -50%
+        )
+        scale(0);
+
+    background:
+
+        #fffbe9;
+
+    border-radius: 15px;
+
+    z-index: 30;
+
+    box-shadow:
+
+        0 15px 40px
+        rgba(0,0,0,.5);
+
+    opacity: 0;
+
+    transition:
+
+        all 1s
+        cubic-bezier(
+            .17,
+            .67,
+            .38,
+            1.4
+        );
+
+}
+
+
+/* cuando aparece */
+
+#loveCard.show {
+
+    opacity: 1;
+
+    transform:
+
+        translate(
+            -50%,
+            -50%
+        )
+        scale(1);
+
+}
+
+
+/* contenido tarjeta */
+
+.card-content {
+
+    width: 100%;
+
+    height: 100%;
+
+    display:
+
+        flex;
+
+    flex-direction:
+
+        column;
+
+    justify-content:
+
+        center;
+
+    align-items:
+
+        center;
+
+    text-align: center;
+
+}
+
+
+/* flor */
+
+.card-flower {
+
+    font-size: 75px;
+
+}
+
+
+/* Te Amo */
+
+.card-title {
+
+    font-family:
+        "Brush Script MT",
+        cursive;
+
+    font-size: 35px;
+
+    line-height: .8;
+
+    color: #635333;
+
+}
+
+
+.card-title strong {
+
+    font-size: 50px;
+
+}
+
+
+/* corazón */
+
+.card-message {
+
+    margin-top: 20px;
+
+    font-size: 20px;
+
+}
+
+
+/* =====================================
+   MENSAJE FINAL
+===================================== */
+
+#message {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 7%;
+
+    width: 90%;
+
+    max-width: 500px;
+
+    transform:
+        translateX(-50%)
+        translateY(30px);
+
+    text-align: center;
+
+    opacity: 0;
+
+    z-index: 20;
+
+    transition:
+
+        all 2s ease;
+
+}
+
+
+#message.show {
+
+    opacity: 1;
+
+    transform:
+
+        translateX(-50%)
+        translateY(0);
+
+}
+
+
+#message h3 {
+
+    margin: 0;
+
+    color: #f3d934;
+
+    font-size: 24px;
+
+    font-weight: normal;
+
+}
+
+
+#message p {
+
+    margin-top: 8px;
+
+    color: #eee;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =====================================
+   PÉTALOS
+===================================== */
+
+.petal {
+
+    position: absolute;
+
+    top: -40px;
+
+    font-size: 16px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    animation:
+
+        fall linear forwards;
+
+}
+
 
 @keyframes fall {
-    from {
-        transform: translateY(-10vh);
+
+    0% {
+
+        transform:
+
+            translateY(-30px)
+            rotate(0deg);
+
+        opacity: 0;
+
     }
-    to {
-        transform: translateY(110vh);
+
+    10% {
+
+        opacity: .8;
+
     }
+
+    100% {
+
+        transform:
+
+            translateY(110vh)
+            rotate(360deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================
+   RESPONSIVE CELULAR
+===================================== */
+
+@media (max-width: 600px) {
+
+    .content {
+
+        width: 280px;
+
+    }
+
+
+    .content h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .content h2 {
+
+        font-size: 16px;
+
+    }
+
+
+    .branch {
+
+        width: 120px;
+
+        height: 360px;
+
+    }
+
+
+    .branch.left {
+
+        left: -15px;
+
+    }
+
+
+    .branch.right {
+
+        right: -15px;
+
+    }
+
+
+    .yellow-flower {
+
+        font-size: 30px;
+
+    }
+
+
+    .leaf {
+
+        font-size: 21px;
+
+    }
+
+
+    .heart-decoration {
+
+        font-size: 110px;
+
+    }
+
+
+    #loveCard {
+
+        width: 230px;
+
+        height: 270px;
+
+    }
+
 }
