@@ -1,60 +1,211 @@
-const btn = document.getElementById("startBtn");
-const container = document.getElementById("flowerContainer");
-const message = document.getElementById("message");
-const music = document.getElementById("music");
-const petalsContainer = document.getElementById("petals");
+/* =========================================
+   ELEMENTOS
+========================================= */
 
-// Función corazón ❤️
-function heart(t) {
-    return {
-        x: 16 * Math.pow(Math.sin(t), 3),
-        y: -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t))
-    };
+const btn =
+    document.getElementById("startBtn");
+
+const music =
+    document.getElementById("music");
+
+const loveCard =
+    document.getElementById("loveCard");
+
+const message =
+    document.getElementById("message");
+
+const petalsContainer =
+    document.getElementById("petals");
+
+
+/* =========================================
+   BOTÓN PRINCIPAL
+========================================= */
+
+btn.addEventListener("click", function () {
+
+
+    /* Ocultar botón */
+
+    btn.style.opacity = "0";
+
+    btn.style.transform =
+        "scale(0)";
+
+    setTimeout(() => {
+
+        btn.style.display =
+            "none";
+
+    }, 500);
+
+
+    /* =====================================
+       ACTIVAR MÚSICA
+
+       El navegador permite reproducir
+       audio porque el usuario acaba
+       de tocar el botón.
+    ===================================== */
+
+    music.play().catch(error => {
+
+        console.log(
+            "No se pudo reproducir la música:",
+            error
+        );
+
+    });
+
+
+    /* =====================================
+       APARECER TARJETA
+    ===================================== */
+
+    setTimeout(() => {
+
+        loveCard.classList.add("show");
+
+    }, 1500);
+
+
+    /* =====================================
+       DESAPARECER TARJETA
+    ===================================== */
+
+    setTimeout(() => {
+
+        loveCard.classList.remove("show");
+
+    }, 5000);
+
+
+    /* =====================================
+       MOSTRAR MENSAJE
+    ===================================== */
+
+    setTimeout(() => {
+
+        message.classList.add("show");
+
+    }, 6000);
+
+
+    /* =====================================
+       CREAR PÉTALOS
+    ===================================== */
+
+    iniciarPetalos();
+
+});
+
+
+/* =========================================
+   FUNCIÓN PARA CREAR PÉTALOS
+========================================= */
+
+function crearPetalo() {
+
+
+    const petal =
+        document.createElement("div");
+
+
+    petal.className =
+        "petal";
+
+
+    /* Usamos flores amarillas */
+
+    const flores = [
+        "🌼",
+        "🌻",
+        "💛",
+        "🌸"
+    ];
+
+
+    petal.innerHTML =
+        flores[
+            Math.floor(
+                Math.random()
+                * flores.length
+            )
+        ];
+
+
+    /* Posición horizontal */
+
+    petal.style.left =
+        Math.random() * 100 + "vw";
+
+
+    /* Tamaño */
+
+    const size =
+        12 +
+        Math.random() * 15;
+
+
+    petal.style.fontSize =
+        size + "px";
+
+
+    /* Duración */
+
+    const duration =
+        5 +
+        Math.random() * 5;
+
+
+    petal.style.animationDuration =
+        duration + "s";
+
+
+    /* Agregar */
+
+    petalsContainer.appendChild(
+        petal
+    );
+
+
+    /* Eliminar */
+
+    setTimeout(() => {
+
+        petal.remove();
+
+    }, duration * 1000);
+
 }
 
-// Iniciar animación
-btn.addEventListener("click", () => {
-    btn.style.display = "none";
 
-    // Activar música (necesario en celulares)
-    music.play();
+/* =========================================
+   INICIAR PÉTALOS
+========================================= */
 
-    // Crear corazón de flores
-    for (let i = 0; i < 70; i++) {
+function iniciarPetalos() {
+
+
+    /* Crear algunos inmediatamente */
+
+    for (let i = 0; i < 15; i++) {
+
         setTimeout(() => {
-            let t = Math.PI * 2 * (i / 70);
-            let pos = heart(t);
 
-            let flower = document.createElement("div");
-            flower.className = "flower";
-            flower.innerHTML = "🌼";
+            crearPetalo();
 
-            flower.style.left = `calc(50% + ${pos.x * 10}px)`;
-            flower.style.top = `calc(40% + ${pos.y * 10}px)`;
+        }, i * 200);
 
-            container.appendChild(flower);
-        }, i * 70);
     }
 
-    // Mostrar mensaje
-    setTimeout(() => {
-        message.style.opacity = "1";
-    }, 4000);
 
-    // Pétalos cayendo 🌸
+    /* Continuar creando */
+
     setInterval(() => {
-        let petal = document.createElement("div");
-        petal.className = "petal";
-        petal.innerHTML = "🌸";
 
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (3 + Math.random() * 5) + "s";
+        crearPetalo();
 
-        petalsContainer.appendChild(petal);
+    }, 500);
 
-        setTimeout(() => {
-            petal.remove();
-        }, 8000);
-
-    }, 300);
-});
+}
