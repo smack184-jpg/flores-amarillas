@@ -1,37 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flores Amarillas 💛</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Flores Amarillas 💛</title>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- Música -->
-<audio id="music" autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-</audio>
+    <!-- Música -->
+    <audio id="music" loop>
+        <source
+            src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"
+            type="audio/mp3">
+    </audio>
 
-<div class="container">
 
-    <!-- Botón -->
-    <button id="startBtn">💌 Presiona aquí</button>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="scene">
 
-    <!-- Flores -->
-    <div id="flowerContainer"></div>
 
-    <!-- Pétalos -->
-    <div id="petals"></div>
+        <!-- DECORACIÓN DE FONDO -->
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+        <div class="glow glow3"></div>
 
-    <!-- Mensaje -->
-    <div id="message">
-        <h1>Flores amarillas para Nenitos</h1>
-        <p>Si pudiera elegir una persona para viajar al universo entero, sería a ti 💛</p>
+
+        <!-- RAMAS IZQUIERDAS -->
+        <div class="branch left">
+
+            <div class="stem"></div>
+
+            <span class="leaf l1">🌿</span>
+            <span class="leaf l2">🌿</span>
+            <span class="leaf l3">🌿</span>
+
+            <span class="yellow-flower f1">🌼</span>
+            <span class="yellow-flower f2">🌼</span>
+            <span class="yellow-flower f3">🌼</span>
+
+        </div>
+
+
+        <!-- RAMAS DERECHAS -->
+        <div class="branch right">
+
+            <div class="stem"></div>
+
+            <span class="leaf l1">🌿</span>
+            <span class="leaf l2">🌿</span>
+            <span class="leaf l3">🌿</span>
+
+            <span class="yellow-flower f1">🌼</span>
+            <span class="yellow-flower f2">🌼</span>
+            <span class="yellow-flower f3">🌼</span>
+
+        </div>
+
+
+        <!-- CORAZÓN DECORATIVO -->
+        <div class="heart-decoration">
+            ♡
+        </div>
+
+
+        <!-- CONTENIDO CENTRAL -->
+        <div class="content">
+
+
+            <div class="small-text">
+                💛
+            </div>
+
+
+            <h1>
+                Te Amo
+                <span>💛</span>
+            </h1>
+
+
+            <h2>
+                Flores amarillas para Nenitos
+            </h2>
+
+
+            <!-- BOTÓN -->
+            <button id="startBtn">
+                💌 Presiona aquí
+            </button>
+
+
+            <!-- PEQUEÑA FLOR -->
+            <div class="center-flower">
+                🌼
+            </div>
+
+
+        </div>
+
+
+        <!-- TARJETA ROMÁNTICA -->
+        <div id="loveCard">
+
+            <div class="card-content">
+
+                <div class="card-flower">
+                    🌻
+                </div>
+
+                <div class="card-title">
+                    Te
+                    <br>
+                    <strong>Amo</strong>
+                </div>
+
+                <div class="card-message">
+                    💛
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENSAJE FINAL -->
+        <div id="message">
+
+            <h3>
+                Flores amarillas para Nenitos 🌼
+            </h3>
+
+            <p>
+                Si pudiera elegir una persona
+                para viajar al universo entero,
+                sería a ti 💛
+            </p>
+
+        </div>
+
+
+        <!-- PÉTALOS -->
+        <div id="petals"></div>
+
     </div>
 
-</div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
+
 </body>
+
 </html>
