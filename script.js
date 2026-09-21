@@ -2,63 +2,56 @@ const btn = document.getElementById("startBtn");
 const container = document.getElementById("flowerContainer");
 const message = document.getElementById("message");
 const music = document.getElementById("music");
-const petalsContainer = document.getElementById("petals");
 
-// Función matemática del corazón ❤️
-function heart(t) {
-    return {
-        x: 16 * Math.pow(Math.sin(t), 3),
-        y: -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t))
-    };
+// Función para distribuir las flores y hojas en forma de arco superior (como el arreglo del video)
+function getArchPosition(i, total) {
+    let angle = (i / (total - 1)) * Math.PI; // Semicírculo superior
+    let radiusX = 130;
+    let radiusY = 80;
+    
+    let x = Math.cos(angle) * radiusX;
+    let y = -Math.sin(angle) * radiusY - 20;
+    
+    return { x, y };
 }
 
-// Iniciar animación
+// Iniciar animación al hacer clic
 btn.addEventListener("click", () => {
-    btn.style.display = "none";
+    btn.style.opacity = "0";
+    setTimeout(() => {
+        btn.style.display = "none";
+    }, 300);
 
-    // Activar música de forma segura para celulares
+    // Reproducción de audio compatible con navegadores móviles
     music.play().catch(error => {
-        console.log("El navegador requiere interacción para el audio:", error);
+        console.log("Reproducción automática bloqueada por el navegador:", error);
     });
 
-    // Crear corazón de flores centrado
-    const totalFlowers = 70;
-    for (let i = 0; i < totalFlowers; i++) {
+    // Generar flores y hojas en forma de ramo
+    const totalItems = 22;
+    for (let i = 0; i < totalItems; i++) {
         setTimeout(() => {
-            let t = Math.PI * 2 * (i / totalFlowers);
-            let pos = heart(t);
+            let pos = getArchPosition(i, totalItems);
 
-            let flower = document.createElement("div");
-            flower.className = "flower";
-            flower.innerHTML = "🌼";
+            let element = document.createElement("div");
+            element.className = "flower";
+            
+            // Alternamos entre hojas verdes y girasoles/flores amarillas para imitar el diseño
+            if (i % 4 === 0 || i % 4 === 3) {
+                element.innerHTML = "🌿";
+            } else {
+                element.innerHTML = "🌻";
+            }
 
-            // Multiplicador ajustado a 12 para una escala perfecta y centrada
-            flower.style.left = `${pos.x * 12}px`;
-            flower.style.top = `${pos.y * 12}px`;
+            element.style.left = `${pos.x}px`;
+            element.style.top = `${pos.y}px`;
 
-            container.appendChild(flower);
-        }, i * 60);
+            container.appendChild(element);
+        }, i * 80);
     }
 
-    // Mostrar mensaje fluidamente
+    // Mostrar el mensaje romántico después de que florezca el arreglo
     setTimeout(() => {
         message.style.opacity = "1";
-    }, 4000);
-
-    // Pétalos cayendo 🌸
-    setInterval(() => {
-        let petal = document.createElement("div");
-        petal.className = "petal";
-        petal.innerHTML = "🌸";
-
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (3 + Math.random() * 4) + "s";
-
-        petalsContainer.appendChild(petal);
-
-        setTimeout(() => {
-            petal.remove();
-        }, 7000);
-
-    }, 300);
+    }, 2200);
 });
