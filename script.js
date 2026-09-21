@@ -4,7 +4,7 @@ const message = document.getElementById("message");
 const music = document.getElementById("music");
 const petalsContainer = document.getElementById("petals");
 
-// Función matemática del corazón ❤️
+// Función corazón ❤️
 function heart(t) {
     return {
         x: 16 * Math.pow(Math.sin(t), 3),
@@ -14,61 +14,47 @@ function heart(t) {
 
 // Iniciar animación
 btn.addEventListener("click", () => {
-    // Transición suave para ocultar el botón
-    btn.style.opacity = "0";
-    setTimeout(() => {
-        btn.style.display = "none";
-    }, 300);
+    btn.style.display = "none";
 
-    // Activar música manejando políticas del navegador
-    music.play().catch(error => console.log("Audio autoplay bloqueado:", error));
+    // Activar música (necesario en celulares)
+    music.play();
 
-    // Variedad de flores para mayor dinamismo visual
-    const flowerTypes = ["🌻", "🌼", "💛", "✨"];
-
-    // Crear corazón de flores de manera fluida
-    const totalFlowers = 75;
-    for (let i = 0; i < totalFlowers; i++) {
+    // Crear corazón de flores
+    for (let i = 0; i < 70; i++) {
         setTimeout(() => {
-            let t = Math.PI * 2 * (i / totalFlowers);
+            let t = Math.PI * 2 * (i / 70);
             let pos = heart(t);
 
             let flower = document.createElement("div");
             flower.className = "flower";
-            
-            // Asigna un emoji aleatorio para enriquecer el diseño
-            flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            flower.innerHTML = "🌼";
 
-            // Ajuste de escala para centrar y dimensionar el corazón en pantalla
-            flower.style.left = `calc(50% + ${pos.x * 14}px)`;
-            flower.style.top = `calc(42% + ${pos.y * 14}px)`;
+            flower.style.left = `calc(50% + ${pos.x * 10}px)`;
+            flower.style.top = `calc(40% + ${pos.y * 10}px)`;
 
             container.appendChild(flower);
-        }, i * 45); // Intervalo más fluido
+        }, i * 70);
     }
 
-    // Mostrar mensaje con animación de desplazamiento suave
+    // Mostrar mensaje
     setTimeout(() => {
         message.style.opacity = "1";
-        message.style.transform = "translateY(0)";
-    }, 3500);
+    }, 4000);
 
-    // Lluvia de pétalos / destellos cayendo de fondo
+    // Pétalos cayendo 🌸
     setInterval(() => {
         let petal = document.createElement("div");
         petal.className = "petal";
-        petal.innerHTML = Math.random() > 0.5 ? "🌸" : "✨";
+        petal.innerHTML = "🌸";
 
         petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (4 + Math.random() * 4) + "s";
-        petal.style.fontSize = (14 + Math.random() * 10) + "px";
+        petal.style.animationDuration = (3 + Math.random() * 5) + "s";
 
         petalsContainer.appendChild(petal);
 
-        // Limpieza de elementos DOM para optimizar memoria
         setTimeout(() => {
             petal.remove();
         }, 8000);
 
-    }, 250);
+    }, 300);
 });
