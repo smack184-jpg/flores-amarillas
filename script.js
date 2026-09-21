@@ -1,3 +1,4 @@
+
 const btn = document.getElementById("startBtn");
 const container = document.getElementById("flowerContainer");
 const message = document.getElementById("message");
