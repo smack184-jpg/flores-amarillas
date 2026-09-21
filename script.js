@@ -2,47 +2,73 @@ const btn = document.getElementById("startBtn");
 const container = document.getElementById("flowerContainer");
 const message = document.getElementById("message");
 const music = document.getElementById("music");
+const petalsContainer = document.getElementById("petals");
 
-// Función de distribución en forma de arco/ramo superior
-function getArchPosition(i, total) {
-    // Crea una curva elegante simulando los tallos y la caída del arreglo del video
-    let angle = (i / total) * Math.PI; // Semicírculo superior
-    let radiusX = 140;
-    let radiusY = 90;
-    
-    let x = Math.cos(angle) * radiusX;
-    let y = -Math.sin(angle) * radiusY - 40;
-    
-    return { x, y };
+// Función matemática del corazón ❤️
+function heart(t) {
+    return {
+        x: 16 * Math.pow(Math.sin(t), 3),
+        y: -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t))
+    };
 }
 
-// Iniciar animación al hacer clic en el botón
+// Iniciar animación
 btn.addEventListener("click", () => {
-    btn.style.display = "none";
+    // Transición suave para ocultar el botón
+    btn.style.opacity = "0";
+    setTimeout(() => {
+        btn.style.display = "none";
+    }, 300);
 
-    // Reproducir música
-    music.play().catch(error => console.log("Reproducción automática bloqueada:", error));
+    // Activar música manejando políticas del navegador
+    music.play().catch(error => console.log("Audio autoplay bloqueado:", error));
 
-    // Generar las flores formando el arreglo
-    const totalFlowers = 24;
+    // Variedad de flores para mayor dinamismo visual
+    const flowerTypes = ["🌻", "🌼", "💛", "✨"];
+
+    // Crear corazón de flores de manera fluida
+    const totalFlowers = 75;
     for (let i = 0; i < totalFlowers; i++) {
         setTimeout(() => {
-            let pos = getArchPosition(i, totalFlowers);
+            let t = Math.PI * 2 * (i / totalFlowers);
+            let pos = heart(t);
 
             let flower = document.createElement("div");
             flower.className = "flower";
-            // Alternamos entre elementos de flores amarillas y hojas verdes para imitar el diseño
-            flower.innerHTML = (i % 3 === 0) ? "🌿" : "🌻";
+            
+            // Asigna un emoji aleatorio para enriquecer el diseño
+            flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
 
-            flower.style.left = `calc(50% + ${pos.x}px)`;
-            flower.style.top = `calc(45% + ${pos.y}px)`;
+            // Ajuste de escala para centrar y dimensionar el corazón en pantalla
+            flower.style.left = `calc(50% + ${pos.x * 14}px)`;
+            flower.style.top = `calc(42% + ${pos.y * 14}px)`;
 
             container.appendChild(flower);
-        }, i * 100);
+        }, i * 45); // Intervalo más fluido
     }
 
-    // Mostrar mensaje romántico después de que aparezcan las flores
+    // Mostrar mensaje con animación de desplazamiento suave
     setTimeout(() => {
         message.style.opacity = "1";
-    }, 2500);
+        message.style.transform = "translateY(0)";
+    }, 3500);
+
+    // Lluvia de pétalos / destellos cayendo de fondo
+    setInterval(() => {
+        let petal = document.createElement("div");
+        petal.className = "petal";
+        petal.innerHTML = Math.random() > 0.5 ? "🌸" : "✨";
+
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.animationDuration = (4 + Math.random() * 4) + "s";
+        petal.style.fontSize = (14 + Math.random() * 10) + "px";
+
+        petalsContainer.appendChild(petal);
+
+        // Limpieza de elementos DOM para optimizar memoria
+        setTimeout(() => {
+            petal.remove();
+        }, 8000);
+
+    }, 250);
 });
